@@ -1,0 +1,11 @@
+{
+  "name": "tuta-url-checker",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix tuta-url-checker-vue run dev",
+    "build": "npm --prefix tuta-url-checker-vue run build",
+    "test": "npm --prefix tuta-url-checker-vue run test:unit",
+    "lint": "npm --prefix tuta-url-checker-vue run lint:check",
+    "install:app": "npm --prefix tuta-url-checker-vue install"
+  }
+}
