@@ -3,6 +3,8 @@ import { ref, effectScope, nextTick } from 'vue'
 import { useUrlCheck } from '@/composables/useUrlCheck'
 import type { CheckUrlExists } from '@/types'
 
+const DEBOUNCE_MS = Number(import.meta.env.VITE_DEBOUNCE_MS) || 400
+
 function setup(check: CheckUrlExists = vi.fn<CheckUrlExists>()) {
   const scope = effectScope()
   const url = ref('')
@@ -86,6 +88,7 @@ describe('useUrlCheck', () => {
     stop()
   })
 
+  //This will fail if Debounce time changes aggressively
   it('Keep order and abort outdated updates', async () => {
     const checkUrlExistsMock = vi.fn<CheckUrlExists>((url) => {
       const delay = url.includes('slow') ? 1000 : 100
@@ -100,7 +103,7 @@ describe('useUrlCheck', () => {
 
     url.value = 'https://slow.com'
     await nextTick()
-    await vi.advanceTimersByTimeAsync(410)
+    await vi.advanceTimersByTimeAsync(DEBOUNCE_MS + 10)
     url.value = 'https://fastNew.com'
     await nextTick()
     await flush()
