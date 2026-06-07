@@ -85,4 +85,27 @@ describe('useUrlCheck', () => {
     expect(check).toHaveBeenCalledWith('https://c.com')
     stop()
   })
+
+  it('Keep order and abort outdated updates', async () => {
+    const checkUrlExistsMock = vi.fn<CheckUrlExists>((url) => {
+      const delay = url.includes('slow') ? 1000 : 100
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ exists: true, type: 'file' })
+        }, delay)
+      })
+    })
+
+    const { url, check, stop } = setup(checkUrlExistsMock)
+
+    url.value = 'https://slow.com'
+    await nextTick()
+    await vi.advanceTimersByTimeAsync(410)
+    url.value = 'https://fastNew.com'
+    await nextTick()
+    await flush()
+    expect(check).toHaveBeenCalledTimes(2)
+    expect(url.value).toEqual('https://fastNew.com')
+    stop()
+  })
 })
