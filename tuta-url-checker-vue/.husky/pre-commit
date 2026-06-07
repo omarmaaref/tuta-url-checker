@@ -1,0 +1,2 @@
+npm --prefix tuta-url-checker-vue run type-check
+npm --prefix tuta-url-checker-vue run lint:check
