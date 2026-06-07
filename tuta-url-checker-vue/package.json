@@ -20,6 +20,8 @@
   "dependencies": {
     "@primeuix/themes": "^2.0.3",
     "@vueuse/core": "^14.3.0",
+    "p-retry": "^8.0.0",
+    "p-throttle": "^8.1.0",
     "primevue": "^4.5.5",
     "vue": "^3.5.32"
   },
