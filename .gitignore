@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Vite
+*.timestamp-*-*.mjs
