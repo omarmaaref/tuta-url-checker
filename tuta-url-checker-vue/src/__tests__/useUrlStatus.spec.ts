@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { ref, effectScope, nextTick } from 'vue'
-import { useUrlCheck } from '@/composables/useUrlCheck'
+import { useUrlStatus } from '@/composables/useUrlStatus'
 import type { CheckUrlExists } from '@/types'
 
 const DEBOUNCE_MS = Number(import.meta.env.VITE_DEBOUNCE_MS) || 400
@@ -8,7 +8,7 @@ const DEBOUNCE_MS = Number(import.meta.env.VITE_DEBOUNCE_MS) || 400
 function setup(check: CheckUrlExists = vi.fn<CheckUrlExists>()) {
   const scope = effectScope()
   const url = ref('')
-  const { state } = scope.run(() => useUrlCheck(url, check))!
+  const { state } = scope.run(() => useUrlStatus(url, check))!
   return { url, state, check, stop: () => scope.stop() }
 }
 
@@ -17,7 +17,7 @@ const flush = async () => {
   await nextTick()
 }
 
-describe('useUrlCheck', () => {
+describe('useUrlStatus', () => {
   beforeEach(() => vi.useFakeTimers())
   afterEach(() => vi.useRealTimers())
 

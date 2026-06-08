@@ -7,9 +7,10 @@ import type { CheckState, CheckUrlExists } from '@/types'
 const DEBOUNCE_MS = Number(import.meta.env.VITE_DEBOUNCE_MS) || 400
 
 /**
- * Watches a URL input, orchestrates checking and exsistence check logic.
+ * Watches a URL input and manages its status.
+ * Handles debouncing, validation, and stale-result.
  */
-export function useUrlCheck(input: Ref<string>, check: CheckUrlExists = checkUrlExists) {
+export function useUrlStatus(input: Ref<string>, check: CheckUrlExists = checkUrlExists) {
   const state = ref<CheckState>({ state: 'init' });
   //global latest order 
   let CallOrder = 0;

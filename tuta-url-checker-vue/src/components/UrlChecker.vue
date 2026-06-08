@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import InputText from 'primevue/inputtext'
-import { useUrlCheck } from '@/composables/useUrlCheck'
+import { useUrlStatus } from '@/composables/useUrlStatus'
 
 const input = ref('')
-const { state } = useUrlCheck(input)
+const { state } = useUrlStatus(input)
 </script>
 
 <template>
